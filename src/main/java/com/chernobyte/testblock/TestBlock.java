@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.chernobyte.testblock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
