@@ -2,6 +2,11 @@
   "parent": "block/cube_all",
   "textures": {
     "particle": "testblock:block/firstblock",
-    "all"     : "testblock:block/firstblock"
+    "up"      : "testblock:block/firstblock",
+    "down"    : "testblock:block/firstblock",
+    "north"   : "testblock:block/firstblock_front",
+    "south"   : "testblock:block/firstblock",
+    "west"    : "testblock:block/firstblock",
+    "east"    : "testblock:block/firstblock"
   }
 }
