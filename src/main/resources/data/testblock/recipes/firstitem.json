@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "###",
     "xxx",
-    "x#x",
-    "xxx"
+    "x  "
   ],
   "key": {
     "x": {
-      "item": "minecraft:cobblestone"
+      "item": "minecraft:iron_ingot"
     },
     "#": {
-      "tag": "forge:dyes/green"
+      "item": "minecraft:gunpowder"
     }
   },
   "result": {
-    "item": "testblock:firstblock"
+    "item": "testblock:firstitem"
   }
 }
