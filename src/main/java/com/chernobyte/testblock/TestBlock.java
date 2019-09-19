@@ -1,6 +1,7 @@
 package com.chernobyte.testblock;
 
 import com.chernobyte.testblock.blocks.FirstBlock;
+import com.chernobyte.testblock.blocks.FirstBlockContainer;
 import com.chernobyte.testblock.blocks.FirstBlockTile;
 import com.chernobyte.testblock.blocks.ModBlocks;
 import com.chernobyte.testblock.items.FirstItem;
@@ -10,10 +11,13 @@ import com.chernobyte.testblock.setup.ModSetup;
 import com.chernobyte.testblock.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -99,27 +103,37 @@ public class TestBlock
     public static class RegistryEvents
     {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> event)
         {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
-            blockRegistryEvent.getRegistry().register(new FirstBlock());
+            event.getRegistry().register(new FirstBlock());
         }
 
         @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> event)
         {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
+            // register a new item here
+            //LOGGER.info("HELLO from Register Block");
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
-            itemRegistryEvent.getRegistry().register(new FirstItem());
+            event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
+            event.getRegistry().register(new FirstItem());
         }
 
         @SubscribeEvent
-        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> tileRegistryEvent)
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event)
         {
-            tileRegistryEvent.getRegistry().register(TileEntityType.Builder.create(FirstBlockTile::new, ModBlocks.FIRSTBLOCK).build(null).setRegistryName("firstblock"));
+            event.getRegistry().register(TileEntityType.Builder.create(FirstBlockTile::new, ModBlocks.FIRSTBLOCK).build(null).setRegistryName("firstblock"));
+        }
+
+        @SubscribeEvent
+        public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event)
+        {
+            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) ->
+            {
+                BlockPos pos = data.readBlockPos();
+                return new FirstBlockContainer(windowId, TestBlock.proxy.getClientWorld(), pos, inv, TestBlock.proxy.getClientPlayer());
+            }).setRegistryName("firstblock"));
         }
     }
 }
