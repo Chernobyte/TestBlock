@@ -1,6 +1,7 @@
 package com.chernobyte.testblock;
 
 import com.chernobyte.testblock.blocks.FirstBlock;
+import com.chernobyte.testblock.blocks.FirstBlockTile;
 import com.chernobyte.testblock.blocks.ModBlocks;
 import com.chernobyte.testblock.items.FirstItem;
 import com.chernobyte.testblock.setup.ClientProxy;
@@ -11,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -112,6 +114,12 @@ public class TestBlock
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
             itemRegistryEvent.getRegistry().register(new FirstItem());
+        }
+
+        @SubscribeEvent
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> tileRegistryEvent)
+        {
+            tileRegistryEvent.getRegistry().register(TileEntityType.Builder.create(FirstBlockTile::new, ModBlocks.FIRSTBLOCK).build(null).setRegistryName("firstblock"));
         }
     }
 }
