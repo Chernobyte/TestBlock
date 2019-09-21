@@ -21,18 +21,18 @@ public class FirstBlockContainer extends Container {
 
     private TileEntity      tileEntity;
     private PlayerEntity    playerEntity;
-    private IItemHandler playerInventory;
+    private IItemHandler    playerInventory;
 
     public FirstBlockContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
         super(FIRSTBLOCK_CONTAINER, windowId);
-        TileEntity tileEntity = world.getTileEntity(pos);
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+        tileEntity = world.getTileEntity(pos);
+        //tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h ->
         {
-            addSlot(new SlotItemHandler(h, 0, 64, 24))
+            addSlot(new SlotItemHandler(h, 0, 64, 24));
         });
         layoutPlayerInventorySlots(10, 70);
     }

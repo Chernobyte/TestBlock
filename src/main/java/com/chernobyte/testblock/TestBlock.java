@@ -38,6 +38,9 @@ import java.util.stream.Collectors;
 @Mod("testblock")
 public class TestBlock
 {
+
+    public static final String MODID = "testblock";
+
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
     public static ModSetup setup = new ModSetup();
